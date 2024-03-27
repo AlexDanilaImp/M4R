@@ -3,15 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 e = 0.2
-a0 = - np.pi / 2 #alpha
-a1 = - np.pi / 4
-a2 = 0
-a3 = np.pi / 4
 h = 0.001 #step size
 v1 = 0
 v2 = 1
 v3 = 0
-z0 = 5j*e
 hw = 100#height of wall
 
 def mu(alpha):
@@ -53,10 +48,10 @@ def a1(z):
 def a2(z):
     return -dz2(z)/(2*dz1(z)**3)
 
-def A(z,alpha):
+def A(z,alpha): #dipole
     return np.conjugate(- lam(alpha)/(dz1(z)))
 
-def B(z,alpha):
+def B(z,alpha): #dipole
     return np.conjugate(lam(alpha) * dz2(z)/(dz1(z)**3))
 
 def Aq(z,alpha):
@@ -68,13 +63,13 @@ def Bq(z,alpha):
 def Cq(z,alpha):
     return -1/2 * Aq(z,alpha) *  np.conjugate(dz3(z)/dz1(z)) - Bq(z,alpha) * np.conjugate(dz2(z)/dz1(z))
 
-def Cs(z,alpha): #z in my scribbles
+def Cs(z,alpha):
     return mu(alpha)/dz1(z)
 
-def As(z,alpha): #x in my scribbles
+def As(z,alpha):
     return np.conjugate((((1+zeta(z))*(1+zeta(z)**2))/(1-zeta(z)))*Cs(z,alpha) + (mu(alpha)*np.conjugate(z))/(dz1(z)**2))
 
-def Bs(z,alpha): #y in my scribbles
+def Bs(z,alpha):
     return np.conjugate(-np.conjugate(As(z,alpha)) * dz2(z)/dz1(z) + ((1+zeta(z))*(1+zeta(z)**2))/((1-zeta(z))) * Cs(z,alpha) * dz2(z)/dz1(z) \
                         + ((1+2*zeta(z)+3*zeta(z)**2)/(1-zeta(z))) * Cs(z,alpha))
 
